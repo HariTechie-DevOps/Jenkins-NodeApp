@@ -9,15 +9,20 @@ pipeline {
             }
         }
 
-        stage('Stop Old Containers') {
+        stage('Stop & Clean Old Containers') {
             steps {
-                sh 'docker-compose down || true'
+                sh '''
+                docker-compose down || true
+                docker rm -f resume-backend resume-frontend || true
+                '''
             }
         }
 
         stage('Build & Deploy') {
             steps {
-                sh 'docker-compose up -d --build'
+                sh '''
+                docker-compose up -d --build
+                '''
             }
         }
 
