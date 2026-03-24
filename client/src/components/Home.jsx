@@ -55,6 +55,7 @@ const Home = ({ setResult }) => {
   return (
     <div className="app">
       <h1>Resume Builder</h1>
+      <h1>Jenkins Auto Deploy Working</h1>
       <p>Generate a resume with ChatGPT in few seconds</p>
       <form
         onSubmit={handleFormSubmit}
