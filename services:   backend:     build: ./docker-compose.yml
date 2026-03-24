@@ -1,0 +1,16 @@
+services:
+  backend:
+    build: ./server
+    container_name: resume-backend
+    ports:
+      - "5000:5000"
+    restart: always
+
+  frontend:
+    build: ./client
+    container_name: resume-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    restart: always
