@@ -9,24 +9,21 @@ pipeline {
             }
         }
 
-        stage('Build Backend Image') {
+        stage('Stop Old Containers') {
             steps {
-                sh 'docker build -t resume-backend ./server'
+                sh 'docker compose down || true'
             }
         }
 
-        stage('Build Frontend Image') {
+        stage('Build & Deploy') {
             steps {
-                sh 'docker build -t resume-frontend ./client'
+                sh 'docker compose up -d --build'
             }
         }
 
-        stage('Run Containers') {
+        stage('Verify') {
             steps {
-                sh '''
-                docker run -d -p 5000:5000 --name resume-backend resume-backend
-                docker run -d -p 3000:3000 --name resume-frontend resume-frontend
-                '''
+                sh 'docker ps'
             }
         }
     }
